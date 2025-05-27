@@ -161,11 +161,11 @@ if ($null -ne $tags) {
 $null = Set-AzResourceGroup -ResourceGroupName $resourceGroup -Tag $tags
 
 
-refreshenv
-az login -u $azureusername -p $azurepassword
-$spnProviderId = az ad sp list --display-name "Microsoft.AzureStackHCI Resource Provider" --query "[0].id" -o tsv
+#refreshenv
+#az login -u $azureusername -p $azurepassword
+#$spnProviderId = az ad sp list --display-name "Microsoft.AzureStackHCI Resource Provider" --query "[0].id" -o tsv
 
-[System.Environment]::SetEnvironmentVariable('spnProviderId', $spnProviderId, [System.EnvironmentVariableTarget]::Machine)
+#[System.Environment]::SetEnvironmentVariable('spnProviderId', $spnProviderId, [System.EnvironmentVariableTarget]::Machine)
 
 
 ##############################################################
