@@ -150,7 +150,7 @@
   },
   "variables": {
     "resourceTags": "[if(parameters('governResourceTags'), union(parameters('tags'), createObject('CostControl', 'Ignore', 'SecurityControl', 'Ignore')), parameters('tags'))]",
-    "templateBaseUrl": "[format('https://raw.githubusercontent.com/{0}/azure_arc/{1}/azure_jumpstart_localbox/', parameters('githubAccount'), parameters('githubBranch'))]",
+    "templateBaseUrl": "https://raw.githubusercontent.com/CloudLabsAI-Azure/azure_arc/refs/heads/main/azure_jumpstart_localbox/",
     "customerUsageAttributionDeploymentName": "feada075-1961-4b99-829f-fa3828068933"
   },
   "resources": [
