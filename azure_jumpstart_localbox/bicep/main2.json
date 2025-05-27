@@ -27,7 +27,7 @@
 
   },
   "variables": {
-    "cloudlabsCommon": "[concat(' -AzureUserName ', parameters('AzureUserName'), ' -AzurePassword ', parameters('AzurePassword'), ' -tenantId ', parameters('tenantId'), ' -subscriptionid ', variables('subscriptionid'), ' -stagingStorageAccountName ', variables('stagingStorageAccountName'), ' -location ', parameters('location'))]",
+    "cloudlabsCommon": "[concat(' -AzureUserName ', parameters('AzureUserName'), ' -AzurePassword ', parameters('AzurePassword'), ' -tenantId ', parameters('tenantId'), ' -subscriptionid ', variables('subscriptionid'), ' -stagingStorageAccountName ', variables('stagingStorageAccountName'), ' -location ', variables('location'))]",
     "subscriptionid": "[subscription().subscriptionId]",
     "AzureTenantID": "[subscription().tenantId]",
     "stagingStorageAccountName": "[format('localbox{0}', uniqueString(resourceGroup().id))]",
