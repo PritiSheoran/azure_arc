@@ -1,23 +1,10 @@
 param (
-  [string]$adminUsername,
-  [string]$adminPassword,
-  [string]$spnProviderId,
+
+
   [string]$tenantId,
   [string]$subscriptionId,
-  [string]$resourceGroup,
-  [string]$azureLocation,
+  [string]$location,
   [string]$stagingStorageAccountName,
-  [string]$workspaceName,
-  [string]$templateBaseUrl,
-  [string]$registerCluster,
-  [string]$deployAKSHCI,
-  [string]$deployResourceBridge,
-  [string]$natDNS,
-  [string]$rdpPort,
-  [string]$autoDeployClusterResource,
-  [string]$autoUpgradeClusterResource,
-  [string]$debugEnabled,
-  [string]$vmAutologon,
   [string]$azureusername,
   [string]$azurepassword
 )
@@ -25,11 +12,27 @@ param (
 Write-Output "Input parameters:"
 $PSBoundParameters
 
+
+  [string]$adminUsername = "arcdemo"
+  [string]$adminPassword = "ArcPassword123!!"
+    [string]$resourceGroup = "Azure-Local"
+  [string]$workspaceName = "localbox-workspace"
+  [string]$registerCluster = true
+  
+  [string]$deployAKSHCI = true
+  [string]$natDNS = "8.8.8.8"
+  [string]$rdpPort = "3389"
+  [string]$autoDeployClusterResource = true
+  [string]$vmAutologon = true
+
+
+
+
 [System.Environment]::SetEnvironmentVariable('adminUsername', $adminUsername, [System.EnvironmentVariableTarget]::Machine)
 [System.Environment]::SetEnvironmentVariable('tenantId', $tenantId, [System.EnvironmentVariableTarget]::Machine)
 [System.Environment]::SetEnvironmentVariable('subscriptionId', $subscriptionId, [System.EnvironmentVariableTarget]::Machine)
 [System.Environment]::SetEnvironmentVariable('resourceGroup', $resourceGroup, [System.EnvironmentVariableTarget]::Machine)
-[System.Environment]::SetEnvironmentVariable('azureLocation', $azureLocation, [System.EnvironmentVariableTarget]::Machine)
+[System.Environment]::SetEnvironmentVariable('azureLocation', $location, [System.EnvironmentVariableTarget]::Machine)
 [System.Environment]::SetEnvironmentVariable('stagingStorageAccountName', $stagingStorageAccountName, [System.EnvironmentVariableTarget]::Machine)
 [System.Environment]::SetEnvironmentVariable('workspaceName', $workspaceName, [System.EnvironmentVariableTarget]::Machine)
 [System.Environment]::SetEnvironmentVariable('templateBaseUrl', $templateBaseUrl, [System.EnvironmentVariableTarget]::Machine)
@@ -100,6 +103,9 @@ Start-Transcript -Path "$($LocalBoxConfig.Paths["LogsDir"])\Bootstrap.log"
 # Extending C:\ partition to the maximum size
 Write-Host "Extending C:\ partition to the maximum size"
 Resize-Partition -DriveLetter C -Size $(Get-PartitionSupportedSize -DriveLetter C).SizeMax
+
+$templateBaseUrl = "https://raw.githubusercontent.com/CloudLabsAI-Azure/azure_arc/refs/heads/main/azure_jumpstart_localbox/"
+
 
 Write-Host "Downloading Azure Local configuration scripts"
 Invoke-WebRequest "https://raw.githubusercontent.com/Azure/arc_jumpstart_docs/main/img/wallpaper/localbox_wallpaper_dark.png" -OutFile $LocalBoxPath\wallpaper.png
