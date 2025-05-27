@@ -905,7 +905,7 @@
             "domainNameLabel": "[concat('localboxclient',parameters('DeploymentID'))]"
           }
         }
-      }
+      },
 
             {
               "type": "Microsoft.Compute/virtualMachines",
