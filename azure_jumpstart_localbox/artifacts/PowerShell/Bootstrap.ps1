@@ -14,7 +14,8 @@ $PSBoundParameters
 
 
   [string]$adminUsername = "arcdemo"
-  [string]$adminPassword = "ArcPassword123!!"
+  $adminPassword = [Convert]::ToBase64String([System.Text.Encoding]::UTF8.GetBytes("ArcPassword123!!"))
+
     [string]$resourceGroup = "Azure-Local"
   [string]$workspaceName = "localbox-workspace"
   [string]$registerCluster = true
@@ -25,6 +26,8 @@ $PSBoundParameters
   [string]$autoDeployClusterResource = true
   [string]$vmAutologon = true
 
+
+$templateBaseUrl = "https://raw.githubusercontent.com/CloudLabsAI-Azure/azure_arc/refs/heads/main/azure_jumpstart_localbox/"
 
 
 
@@ -103,8 +106,6 @@ Start-Transcript -Path "$($LocalBoxConfig.Paths["LogsDir"])\Bootstrap.log"
 # Extending C:\ partition to the maximum size
 Write-Host "Extending C:\ partition to the maximum size"
 Resize-Partition -DriveLetter C -Size $(Get-PartitionSupportedSize -DriveLetter C).SizeMax
-
-$templateBaseUrl = "https://raw.githubusercontent.com/CloudLabsAI-Azure/azure_arc/refs/heads/main/azure_jumpstart_localbox/"
 
 
 Write-Host "Downloading Azure Local configuration scripts"
