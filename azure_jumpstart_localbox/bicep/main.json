@@ -332,7 +332,22 @@
               "name": "[parameters('networkSecurityGroupName')]",
               "location": "[parameters('location')]",
               "properties": {
-                "securityRules": []
+                "securityRules": [
+               {
+                    "name": "AllowRDP",
+                    "properties": {
+                      "priority": 1010,
+                      "protocol": "*",
+                      "access": "Allow",
+                      "direction": "Inbound",
+                      "sourceAddressPrefix": "Internet",
+                      "sourcePortRange": "*",
+                      "destinationAddressPrefix": "*",
+                      "destinationPortRange": "3389"
+                    }
+
+                  
+                ]
               },
               "tags": "[parameters('resourceTags')]"
             },
@@ -871,22 +886,26 @@
                 "[resourceId('Microsoft.Network/publicIPAddresses', variables('publicIpAddressName'))]"
               ]
             },
-            {
-              "condition": "[equals(parameters('deployBastion'), false())]",
-              "type": "Microsoft.Network/publicIPAddresses",
-              "apiVersion": "2021-03-01",
-              "name": "[variables('publicIpAddressName')]",
-              "location": "[parameters('location')]",
-              "properties": {
-                "publicIPAllocationMethod": "Static",
-                "publicIPAddressVersion": "IPv4",
-                "idleTimeoutInMinutes": 4
-              },
-              "sku": {
-                "name": "Basic"
-              },
-              "tags": "[parameters('resourceTags')]"
-            },
+                {
+        "condition": "[equals(parameters('deployBastion'), false())]",
+        "type": "Microsoft.Network/publicIPAddresses",
+        "apiVersion": "2021-03-01",
+        "name": "[variables('publicIpAddressName')]",
+        "location": "[parameters('location')]",
+        "tags": "[parameters('resourceTags')]",
+        "sku": {
+          "name": "Basic"
+        },
+        "properties": {
+          "publicIPAllocationMethod": "Static",
+          "publicIPAddressVersion": "IPv4",
+          "idleTimeoutInMinutes": 4,
+          "dnsSettings": {
+            "domainNameLabel":  "[concat('localboxclient',parameters('DeploymentID'))]",
+          }
+        }
+      }
+
             {
               "type": "Microsoft.Compute/virtualMachines",
               "apiVersion": "2022-03-01",
