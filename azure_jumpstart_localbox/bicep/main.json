@@ -902,7 +902,7 @@
           "publicIPAddressVersion": "IPv4",
           "idleTimeoutInMinutes": 4,
           "dnsSettings": {
-            "domainNameLabel":  "[concat('localboxclient',parameters('DeploymentID'))]",
+            "domainNameLabel": "[concat('localboxclient',parameters('DeploymentID'))]"
           }
         }
       }
