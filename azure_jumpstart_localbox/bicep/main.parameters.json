@@ -6,6 +6,10 @@
         "windowsAdminUsername": {
             "value": "arcdemo"
         },
+        
+         "spnProviderId": {
+            "value": "guid"
+        },
         "windowsAdminPassword": {
             "value": "ArcPassword123!!"
         },
