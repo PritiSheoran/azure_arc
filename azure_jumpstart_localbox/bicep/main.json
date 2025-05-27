@@ -9,8 +9,17 @@
     }
   },
   "parameters": {
+     "azureusername": {
+      "type": "string"
+      
+    },
+    "azurepassword": {
+      "type": "secureString"
+    
+    },
     "tenantId": {
       "type": "string",
+      "defaultValue": "[subscription().tenantId]",
       "metadata": {
         "description": "Azure AD tenant id for your service principal"
       }
@@ -602,6 +611,12 @@
         },
         "mode": "Incremental",
         "parameters": {
+          "azureusername": {
+            "value": "[parameters('azureusername')]"
+          },
+           "azurepassword": {
+            "value": "[parameters('azurepassword')]"
+          },
           "vmSize": {
             "value": "[parameters('vmSize')]"
           },
@@ -813,7 +828,13 @@
               "metadata": {
                 "description": "Enable automatic logon into LocalBox Virtual Machine"
               }
-            }
+            },
+             "azureusername": {
+      "type": "string"
+    },
+    "azurepassword":{
+      "type": "string"
+    }
           },
           "variables": {
             "encodedPassword": "[base64(parameters('windowsAdminPassword'))]",
@@ -1021,7 +1042,7 @@
                   "fileUris": [
                     "[uri(parameters('templateBaseUrl'), 'artifacts/PowerShell/Bootstrap.ps1')]"
                   ],
-                  "commandToExecute": "[format('powershell.exe -ExecutionPolicy Bypass -File Bootstrap.ps1 -adminUsername {0} -adminPassword {1} -tenantId {2} -subscriptionId {3} -spnProviderId {4} -resourceGroup {5} -azureLocation {6} -stagingStorageAccountName {7} -workspaceName {8} -templateBaseUrl {9} -registerCluster {10} -deployAKSHCI {11} -deployResourceBridge {12} -natDNS {13} -rdpPort {14} -autoDeployClusterResource {15} -autoUpgradeClusterResource {16} -vmAutologon {17}', parameters('windowsAdminUsername'), variables('encodedPassword'), parameters('tenantId'), subscription().subscriptionId, parameters('spnProviderId'), resourceGroup().name, parameters('location'), parameters('stagingStorageAccountName'), parameters('workspaceName'), parameters('templateBaseUrl'), parameters('registerCluster'), parameters('deployAKSHCI'), parameters('deployResourceBridge'), parameters('natDNS'), parameters('rdpPort'), parameters('autoDeployClusterResource'), parameters('autoUpgradeClusterResource'), parameters('vmAutologon'))]"
+                  "commandToExecute": "[format('powershell.exe -ExecutionPolicy Bypass -File Bootstrap.ps1 -adminUsername {0} -adminPassword {1} -tenantId {2} -subscriptionId {3} -spnProviderId {4} -resourceGroup {5} -azureLocation {6} -stagingStorageAccountName {7} -workspaceName {8} -templateBaseUrl {9} -registerCluster {10} -deployAKSHCI {11} -deployResourceBridge {12} -natDNS {13} -rdpPort {14} -autoDeployClusterResource {15} -autoUpgradeClusterResource {16} -vmAutologon {17} -azureusername -azurepassword}', parameters('windowsAdminUsername'), variables('encodedPassword'), parameters('tenantId'), subscription().subscriptionId, parameters('spnProviderId'), resourceGroup().name, parameters('location'), parameters('stagingStorageAccountName'), parameters('workspaceName'), parameters('templateBaseUrl'), parameters('registerCluster'), parameters('deployAKSHCI'), parameters('deployResourceBridge'), parameters('natDNS'), parameters('rdpPort'), parameters('autoDeployClusterResource'), parameters('autoUpgradeClusterResource'), parameters('vmAutologon'), parameters('azureusername'), parameters('azurepassword"
                 }
               },
               "dependsOn": [

@@ -17,7 +17,9 @@ param (
   [string]$autoDeployClusterResource,
   [string]$autoUpgradeClusterResource,
   [string]$debugEnabled,
-  [string]$vmAutologon
+  [string]$vmAutologon,
+  [string]$azureusername,
+  [string]$azurepassword
 )
 
 Write-Output "Input parameters:"
@@ -25,7 +27,6 @@ $PSBoundParameters
 
 [System.Environment]::SetEnvironmentVariable('adminUsername', $adminUsername, [System.EnvironmentVariableTarget]::Machine)
 [System.Environment]::SetEnvironmentVariable('tenantId', $tenantId, [System.EnvironmentVariableTarget]::Machine)
-[System.Environment]::SetEnvironmentVariable('spnProviderId', $spnProviderId, [System.EnvironmentVariableTarget]::Machine)
 [System.Environment]::SetEnvironmentVariable('subscriptionId', $subscriptionId, [System.EnvironmentVariableTarget]::Machine)
 [System.Environment]::SetEnvironmentVariable('resourceGroup', $resourceGroup, [System.EnvironmentVariableTarget]::Machine)
 [System.Environment]::SetEnvironmentVariable('azureLocation', $azureLocation, [System.EnvironmentVariableTarget]::Machine)
@@ -38,6 +39,9 @@ $PSBoundParameters
 [System.Environment]::SetEnvironmentVariable('autoUpgradeClusterResource', $autoUpgradeClusterResource, [System.EnvironmentVariableTarget]::Machine)
 [System.Environment]::SetEnvironmentVariable('registerCluster', $registerCluster, [System.EnvironmentVariableTarget]::Machine)
 [System.Environment]::SetEnvironmentVariable('natDNS', $natDNS, [System.EnvironmentVariableTarget]::Machine)
+[System.Environment]::SetEnvironmentVariable('azureusername', $azureusername, [System.EnvironmentVariableTarget]::Machine)
+[System.Environment]::SetEnvironmentVariable('azurepassword', $azurepassword, [System.EnvironmentVariableTarget]::Machine)
+
 
 if ($debugEnabled -eq "true") {
   [System.Environment]::SetEnvironmentVariable('ErrorActionPreference', "Break", [System.EnvironmentVariableTarget]::Machine)
@@ -147,6 +151,14 @@ if ($null -ne $tags) {
 }
 
 $null = Set-AzResourceGroup -ResourceGroupName $resourceGroup -Tag $tags
+
+
+refreshenv
+az login -u $azureusername -p $azurepassword
+$spnProviderId = az ad sp list --display-name "Microsoft.AzureStackHCI Resource Provider" --query "[0].id" -o tsv
+
+[System.Environment]::SetEnvironmentVariable('spnProviderId', $spnProviderId, [System.EnvironmentVariableTarget]::Machine)
+
 
 ##############################################################
 # Installing PowerShell 7
