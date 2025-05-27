@@ -637,6 +637,9 @@
            "azurepassword": {
             "value": "[parameters('azurepassword')]"
           },
+            "deploymentID":{
+      "value": "[parameters('deploymentID')]"
+    }
           "vmSize": {
             "value": "[parameters('vmSize')]"
           },
@@ -853,6 +856,9 @@
       "type": "string"
     },
     "azurepassword":{
+      "type": "string"
+    },
+            "deploymentID":{
       "type": "string"
     }
           },
