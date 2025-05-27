@@ -17,10 +17,6 @@
       "type": "secureString"
     
     },
-     "deploymentID": {
-      "type": "secureString"
-    
-    },
     "tenantId": {
       "type": "string",
       "defaultValue": "[subscription().tenantId]",
@@ -143,6 +139,12 @@
       },
       "metadata": {
         "description": "Tags to be added to all resources"
+      }
+    },
+    "DeploymentID": {
+      "type": "string",
+      "metadata": {
+        "description": "Deployment ID for tracking and management"
       }
     }
   },
@@ -637,9 +639,6 @@
            "azurepassword": {
             "value": "[parameters('azurepassword')]"
           },
-            "deploymentID":{
-      "value": "[parameters('deploymentID')]"
-    }
           "vmSize": {
             "value": "[parameters('vmSize')]"
           },
@@ -690,6 +689,9 @@
           },
           "resourceTags": {
             "value": "[variables('resourceTags')]"
+          },
+          "DeploymentID": {
+            "value": "[parameters('DeploymentID')]"
           }
         },
         "template": {
@@ -856,9 +858,6 @@
       "type": "string"
     },
     "azurepassword":{
-      "type": "string"
-    },
-            "deploymentID":{
       "type": "string"
     }
           },
