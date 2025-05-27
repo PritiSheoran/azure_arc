@@ -859,6 +859,10 @@
     },
     "azurepassword":{
       "type": "string"
+    },
+             "DeploymentID": {
+      "type": "string",
+   
     }
           },
           "variables": {
