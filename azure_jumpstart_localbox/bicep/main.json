@@ -345,6 +345,7 @@
                       "destinationAddressPrefix": "*",
                       "destinationPortRange": "3389"
                     }
+               }
 
                   
                 ]
