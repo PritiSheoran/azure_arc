@@ -861,8 +861,7 @@
       "type": "string"
     },
              "DeploymentID": {
-      "type": "string",
-   
+      "type": "string"
     }
           },
           "variables": {
@@ -1163,7 +1162,8 @@
         }
       }
     }
-  ],"outputs":{
+  ],
+  "outputs": {
      "HCIHost VM DNS": {
       "value": "[concat('localboxclient',parameters('DeploymentID'), '.', resourceGroup().location, '.cloudapp.azure.com')]",
       "type": "string"
@@ -1176,6 +1176,5 @@
       "value": "Password.1!!",
       "type": "string"
     }
-
   }
 }
