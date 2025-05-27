@@ -11,11 +11,7 @@
         "windowsAdminPassword": {
             "value": "ArcPassword123!!"
         },
-        "tenantId": {
-            "value": ""
-        },
-
-           "DeploymentID": {
+        "DeploymentID": {
       "value": "GET-DEPLOYMENT-ID"
     },
        "azureusername": {
