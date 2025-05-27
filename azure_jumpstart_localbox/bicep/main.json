@@ -1130,5 +1130,19 @@
         }
       }
     }
-  ]
+  ],"outputs":{
+     "HCIHost VM DNS": {
+      "value": "[concat('localboxclient',parameters('DeploymentID'), '.', resourceGroup().location, '.cloudapp.azure.com')]",
+      "type": "string"
+    },
+    "ARCHost VM username": {
+      "value": "azureuser",
+      "type": "string"
+    },
+    "ARCHost VM password": {
+      "value": "Password.1!!",
+      "type": "string"
+    }
+
+  }
 }
