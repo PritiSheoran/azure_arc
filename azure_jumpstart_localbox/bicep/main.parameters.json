@@ -7,24 +7,14 @@
             "value": "arcdemo"
         },
         
-         "spnProviderId": {
-            "value": "guid"
-        },
+
         "windowsAdminPassword": {
             "value": "ArcPassword123!!"
         },
-        "logAnalyticsWorkspaceName": {
-            "value": "LocalBox-Workspace"
+        "tenantId": {
+            "value": ""
         },
-        "deployBastion": {
-            "value": false
-        },
-        "autoDeployClusterResource": {
-            "value": false
-        },
-        "autoUpgradeClusterResource": {
-            "value": false
-        },
+
            "DeploymentID": {
       "value": "GET-DEPLOYMENT-ID"
     },
