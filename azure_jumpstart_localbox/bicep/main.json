@@ -17,6 +17,10 @@
       "type": "secureString"
     
     },
+     "deploymentID": {
+      "type": "secureString"
+    
+    },
     "tenantId": {
       "type": "string",
       "defaultValue": "[subscription().tenantId]",
