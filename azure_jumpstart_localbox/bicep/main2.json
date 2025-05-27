@@ -14,22 +14,16 @@
     "AzurePassword": {
       "type": "securestring"
     },
-   "tenantId": {
-      "type": "string",
-      "defaultValue": "[subscription().tenantId]",
-      "metadata": {
-        "description": "Azure AD tenant id for your service principal"
-      }
-    },
+
     "DeploymentID": {
       "type": "string"
     }
 
   },
   "variables": {
-    "cloudlabsCommon": "[concat(' -AzureUserName ', parameters('AzureUserName'), ' -AzurePassword ', parameters('AzurePassword'), ' -tenantId ', parameters('tenantId'), ' -subscriptionid ', variables('subscriptionid'), ' -stagingStorageAccountName ', variables('stagingStorageAccountName'), ' -location ', variables('location'))]",
+    "cloudlabsCommon": "[concat(' -AzureUserName ', parameters('AzureUserName'), ' -AzurePassword ', parameters('AzurePassword'), ' -tenantId ', variables('tenantId'), ' -subscriptionid ', variables('subscriptionid'), ' -stagingStorageAccountName ', variables('stagingStorageAccountName'), ' -location ', variables('location'))]",
     "subscriptionid": "[subscription().subscriptionId]",
-    "AzureTenantID": "[subscription().tenantId]",
+    "tenantId": "[subscription().tenantId]",
     "stagingStorageAccountName": "[format('localbox{0}', uniqueString(resourceGroup().id))]",
     "addressPrefix": "172.16.0.0/16",
 
