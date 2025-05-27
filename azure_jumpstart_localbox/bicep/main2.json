@@ -231,7 +231,7 @@
                   ]
                 },
                 "osProfile": {
-                  "computerName": "[parameters('vmName')]",
+                  "computerName": "[variables('vmName')]",
                   "adminUsername": "[parameters('windowsAdminUsername')]",
                   "adminPassword": "[parameters('windowsAdminPassword')]",
                   "windowsConfiguration": {
