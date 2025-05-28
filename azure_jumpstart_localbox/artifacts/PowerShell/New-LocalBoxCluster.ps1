@@ -1934,42 +1934,41 @@ if ($null -ne $tags) {
 $null = Set-AzResourceGroup -ResourceGroupName $env:resourceGroup -Tag $tags
 $null = Set-AzResource -ResourceName $env:computername -ResourceGroupName $env:resourceGroup -ResourceType 'microsoft.compute/virtualmachines' -Tag $tags -Force
 
-#Invoke-AzureEdgeBootstrap -LocalBoxConfig $LocalBoxConfig -localCred $localCred
+Invoke-AzureEdgeBootstrap -LocalBoxConfig $LocalBoxConfig -localCred $localCred
 
-#Set-AzLocalDeployPrereqs -LocalBoxConfig $LocalBoxConfig -localCred $localCred -domainCred $domainCred
+Set-AzLocalDeployPrereqs -LocalBoxConfig $LocalBoxConfig -localCred $localCred -domainCred $domainCred
 
-# & "$Env:LocalBoxDir\Generate-ARM-Template.ps1"
+ & "$Env:LocalBoxDir\Generate-ARM-Template.ps1"
 
 # #######################################################################################
 # # Validate and deploy the cluster
 # #######################################################################################
 
-# Write-Host "[Build cluster - Step 10/11] Validate cluster deployment..." -ForegroundColor Green
+ Write-Host "[Build cluster - Step 10/11] Validate cluster deployment..." -ForegroundColor Green
 
-# if ("True" -eq $env:autoDeployClusterResource) {
+ if ("True" -eq $env:autoDeployClusterResource) {
 
-#     $DeploymentProgressString = 'Validating Azure Local cluster deployment'
+     $DeploymentProgressString = 'Validating Azure Local cluster deployment'
 
-#     $tags = Get-AzResourceGroup -Name $env:resourceGroup | Select-Object -ExpandProperty Tags
+     $tags = Get-AzResourceGroup -Name $env:resourceGroup | Select-Object -ExpandProperty Tags
 
-#     if ($null -ne $tags) {
-#         $tags['DeploymentProgress'] = $DeploymentProgressString
-#     } else {
-#         $tags = @{'DeploymentProgress' = $DeploymentProgressString }
-#     }
+     if ($null -ne $tags) {
+         $tags['DeploymentProgress'] = $DeploymentProgressString
+     } else {
+         $tags = @{'DeploymentProgress' = $DeploymentProgressString }
+     }
 
-#     $null = Set-AzResourceGroup -ResourceGroupName $env:resourceGroup -Tag $tags
-#     $null = Set-AzResource -ResourceName $env:computername -ResourceGroupName $env:resourceGroup -ResourceType 'microsoft.compute/virtualmachines' -Tag $tags -Force
+     $null = Set-AzResourceGroup -ResourceGroupName $env:resourceGroup -Tag $tags
+     $null = Set-AzResource -ResourceName $env:computername -ResourceGroupName $env:resourceGroup -ResourceType 'microsoft.compute/virtualmachines' -Tag $tags -Force
 
-# $TemplateFile = Join-Path -Path $env:LocalBoxDir -ChildPath "azlocal.json"
-# $TemplateParameterFile = Join-Path -Path $env:LocalBoxDir -ChildPath "azlocal.parameters.json"
-
-#try {
-#    New-AzResourceGroupDeployment -Name 'localcluster-validate' -ResourceGroupName $env:resourceGroup -TemplateFile $TemplateFile -TemplateParameterFile $TemplateParameterFile -OutVariable ClusterValidationDeployment -ErrorAction Stop
-#}
-#catch {
-#    Write-Output "Validation failed. Re-run New-AzResourceGroupDeployment to retry. Error: $($_.Exception.Message)"
-#}
+ $TemplateFile = Join-Path -Path $env:LocalBoxDir -ChildPath "azlocal.json"
+ $TemplateParameterFile = Join-Path -Path $env:LocalBoxDir -ChildPath "azlocal.parameters.json"
+try {
+    New-AzResourceGroupDeployment -Name 'localcluster-validate' -ResourceGroupName $env:resourceGroup -TemplateFile $TemplateFile -TemplateParameterFile $TemplateParameterFile -OutVariable ClusterValidationDeployment -ErrorAction Stop
+}
+catch {
+    Write-Output "Validation failed. Re-run New-AzResourceGroupDeployment to retry. Error: $($_.Exception.Message)"
+}
 
 
 <#
