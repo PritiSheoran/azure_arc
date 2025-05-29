@@ -1,4 +1,4 @@
-﻿# Set paths
+# Set paths
 $Env:LocalBoxDir = "C:\LocalBox"
 $Env:LocalBoxLogsDir = "C:\LocalBox\Logs"
 
@@ -1969,7 +1969,7 @@ Set-AzLocalDeployPrereqs -LocalBoxConfig $LocalBoxConfig -localCred $localCred -
 #catch {
     Write-Output "Validation failed. Re-run New-AzResourceGroupDeployment to retry. Error: $($_.Exception.Message)"
 }
-}
+#}
 
 <#
   Adding known governance tags for avoiding disruptions to the deployment. These tags are applicable to ONLY Microsoft-internal Azure lab tenants and designed for managing automated governance processes related to cost optimization and security controls.
