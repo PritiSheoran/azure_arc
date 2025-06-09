@@ -224,15 +224,23 @@ $null = Set-AzResourceGroup -ResourceGroupName $resourceGroup -Tag $tags
 
 $ScheduledTaskExecutable = "pwsh.exe"
 
+#Enable Autologon for WinGet.ps1
+$AutoLogonRegPath = "HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon"
+Set-ItemProperty -Path $AutoLogonRegPath -Name "AutoAdminLogon" -Value "1" -type String
+Set-ItemProperty -Path $AutoLogonRegPath -Name "DefaultUsername" -Value "$adminUsername" -type String  
+Set-ItemProperty -Path $AutoLogonRegPath -Name "DefaultPassword" -Value "$adminPassword" -type String
+Set-ItemProperty -Path $AutoLogonRegPath -Name "AutoLogonCount" -Value "1" -type DWord
+
 # Creating scheduled task for WinGet.ps1
-$Trigger = New-ScheduledTaskTrigger -AtLogOn
-$Action = New-ScheduledTaskAction -Execute $ScheduledTaskExecutable -Argument $LocalBoxPath\WinGet.ps1
+$Trigger= New-ScheduledTaskTrigger -AtLogOn
+Write-Host "Creating scheduled task for WinGet.ps1"
+$Action= New-ScheduledTaskAction -Execute $ScheduledTaskExecutable -Argument "-executionPolicy bypass -File C:\LocalBox\WinGet.ps1"
 Register-ScheduledTask -TaskName "WinGetLogonScript" -Trigger $Trigger -User $adminUsername -Action $Action -RunLevel "Highest" -Force
 
 # Creating scheduled task for LocalBoxLogonScript.ps1
 Write-Host "Creating scheduled task for LocalBoxLogonScript.ps1"
-$Action = New-ScheduledTaskAction -Execute $ScheduledTaskExecutable -Argument $LocalBoxPath\LocalBoxLogonScript.ps1
-Register-ScheduledTask -TaskName "LocalBoxLogonScript"  -User $adminUsername -Action $Action -RunLevel "Highest" -Force
+$Action= New-ScheduledTaskAction -Execute $ScheduledTaskExecutable -Argument "-executionPolicy bypass -File C:\LocalBox\LocalBoxLogonScript.ps1"
+Register-ScheduledTask -TaskName "LocalBoxLogonScript" -Trigger $Trigger -User $adminUsername -Action $Action -RunLevel "Highest" -Force
 
 # Disable Edge 'First Run' Setup
 Write-Host "Configuring Microsoft Edge."
