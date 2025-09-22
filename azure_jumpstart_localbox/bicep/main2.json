@@ -87,12 +87,15 @@
       }
     },
     {
-      "type": "Microsoft.Network/publicIpAddresses",
+    "type": "Microsoft.Network/publicIpAddresses",
       "apiVersion": "2017-08-01",
       "name": "[variables('publicIpAddressName')]",
       "location": "[variables('location')]",
+      "sku": {
+        "name": "Standard"
+      },
       "properties": {
-        "publicIpAllocationMethod": "Dynamic",
+        "publicIpAllocationMethod": "Static",
         "dnsSettings": {
           "domainNameLabel": "[concat(variables('publicIpAddressDNSName'))]"
         }
@@ -374,3 +377,4 @@
     }
   }
 }
+
